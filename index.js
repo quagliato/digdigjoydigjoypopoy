@@ -1,7 +1,7 @@
-require("./node_modules/newrelic/newrelic.js");
-
 var bodyParser = require("./node_modules/body-parser/index.js");
 var express = require("./node_modules/express/index.js");
+
+require('newrelic');
 
 app = express();
 
