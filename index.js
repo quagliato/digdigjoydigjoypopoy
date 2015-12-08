@@ -1,7 +1,7 @@
+require('newrelic');
+
 var bodyParser = require("./node_modules/body-parser/index.js");
 var express = require("./node_modules/express/index.js");
-
-require('newrelic');
 
 app = express();
 
@@ -67,20 +67,25 @@ app.post('/', function(request, response, body) {
   }
 });
 
+/***************************************************************************/
+/* GET PAGE */
+/***************************************************************************/
+
 app.get('/', function(request, response, body) {
   response.set('Access-Control-Allow-Origin', '*');
   response.set('Content-Type', 'text/plain');
 
   var fs = require('fs');
   fs.readFile('README', 'utf8', function(err, data) {
-    if (err !== null && err !== undefined) {
+    if (err) {
       console.log(err);
       response.status(500).end(JSON.stringify({'status':'ERROR','description':'Couldn\'t process your request.'}));
-    }
-    var returnStr = data;
-    returnStr += "\n\n" + JSON.stringify({"status": "ALIVE"});
+    } else {
+      var returnStr = data;
+      returnStr += "\n\n" + JSON.stringify({"status": "OK"});
 
-    response.end(returnStr);
+      response.end(returnStr);
+    }
   });
 });
 
