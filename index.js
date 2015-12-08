@@ -88,11 +88,11 @@ app.get('/', function(request, response, body) {
 /* HEALTH CHECK */
 /****************************************************************************/
 app.get("/status", function(request, response, body){
-  response.status(200).send(JSON.stringify({"status":"OK"}));
+  response.status(200).send(JSON.stringify({"status":"OK", "method":"POST"}));
 });
 
 app.post("/status", function(request, response, body){
-  response.status(200).send(JSON.stringify({"status":"OK"}));
+  response.status(200).send(JSON.stringify({"status":"OK", "method":"GET"}));
 });
 
 /*****************************************************************************/
@@ -139,4 +139,4 @@ app.post("/whois", function(request, response, body){
    });
 });
 
-app.listen(80);
+app.listen(3000);

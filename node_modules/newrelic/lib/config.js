@@ -134,7 +134,8 @@ var BOOLEAN_VARS = [
   "NEW_RELIC_BROWSER_MONITOR_ENABLE",
   "NEW_RELIC_BROWSER_MONITOR_DEBUG",
   "NEW_RELIC_HIGH_SECURITY",
-  "NEW_RELIC_SLOW_SQL_ENABLED"
+  "NEW_RELIC_SLOW_SQL_ENABLED",
+  "NEW_RELIC_LOG_ENABLED"
 ]
 
 var FLOAT_VARS = [
@@ -380,6 +381,17 @@ Config.prototype._fromServer = function _fromServer(params, key) {
       this._alwaysUpdateIfChanged(params, key)
       break
 
+    case 'collect_error_events':
+      if (params.collect_error_events === false) {
+        this._updateNestedIfChanged(
+          params,
+          this.error_collector,
+          key,
+          'capture_events'
+        )
+      }
+      break
+
     // also accept these settings
     case 'url_rules':
     case 'metric_name_rules':
@@ -428,6 +440,24 @@ Config.prototype._fromServer = function _fromServer(params, key) {
         'ignore_status_codes'
       )
       this._canonicalize()
+      break
+
+    case 'error_collector.capture_events':
+      this._updateNestedIfChanged(
+        params,
+        this.error_collector,
+        'error_collector.capture_events',
+        'capture_events'
+      )
+      break
+
+    case 'error_collector.max_event_samples_stored':
+      this._updateNestedIfChanged(
+        params,
+        this.error_collector,
+        'error_collector.max_event_samples_stored',
+        'max_event_samples_stored'
+      )
       break
 
     case 'collect_analytics_events':
