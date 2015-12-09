@@ -14,10 +14,14 @@ app.use(bodyParser.urlencoded({
 /* HEALTH CHECK */
 /****************************************************************************/
 app.get("/status", function(request, response, body){
+  response.set('Access-Control-Allow-Origin', '*');
+  response.set('Content-Type', 'text/json');
   response.status(200).send(JSON.stringify({"status":"OK", "method":"POST"}));
 });
 
 app.post("/status", function(request, response, body){
+  response.set('Access-Control-Allow-Origin', '*');
+  response.set('Content-Type', 'text/json');
   response.status(200).send(JSON.stringify({"status":"OK", "method":"GET"}));
 });
 
@@ -33,12 +37,9 @@ app.get('/', function(request, response, body) {
   fs.readFile('README.html', 'utf8', function(err, data) {
     if (err) {
       console.log(err);
-      response.status(500).end(JSON.stringify({'status':'ERROR','description':'Couldn\'t process your request.'}));
+      response.status(500).end(JSON.stringify({"status":"ERROR","description":"Couldn't process your request."}));
     } else {
-      var returnStr = data;
-      returnStr += "\n\n" + JSON.stringify({"status": "OK"});
-
-      response.end(returnStr);
+      response.end(data);
     }
   });
 });
@@ -54,7 +55,7 @@ app.post('/', function(request, response, body) {
   var params = Object.keys(request.body)[0];
   params = JSON.parse(params);
   if (!params.hasOwnProperty('domain') || !params.hasOwnProperty('type')) {
-    response.status(404).end(JSON.stringify({'status':'ERROR', 'description':'Domain and Type are mandatory parameters.'}));
+    response.status(404).end(JSON.stringify({"status":"ERROR", "description":"Domain and Type are mandatory parameters."}));
   } else {
   var dns = require("./node_modules/native-dns/dns.js");
   dns.Request({
@@ -65,10 +66,10 @@ app.post('/', function(request, response, body) {
     server: {"address":"8.8.8.8","port":"53","type":"udp"},
     timeout: 2000
   }).on('timeout', function() {
-    response.status(500).end(JSON.stringify({'status':'ERROR','description':'Timeout in fetching DNS info.'}));
+    response.status(500).end(JSON.stringify({"status":"ERROR", "description":"Timeout in fetching DNS info."}));
   }).on('message', function(err, res) {
     if (err !== null && err !== undefined) {
-      response.status(500).end(JSON.stringify({'status':'ERROR', 'description':'Couldn\'t process your request.'}));
+      response.status(500).end(JSON.stringify({"status":"ERROR", "description":"Couldn't process your request."}));
     } else {
 
     var records = [];
@@ -99,7 +100,7 @@ app.post('/', function(request, response, body) {
       }
     }
 
-    response.status(200).end(JSON.stringify({'status':'OK', 'records':records}));
+    response.status(200).end(JSON.stringify({"status":"OK", "records":records}));
   }).send();
   }
 });
@@ -115,7 +116,7 @@ app.post("/whois", function(request, response, body){
   var params = Object.keys(request.body)[0];
   params = JSON.parse(params);
   if (!params.hasOwnProperty('domain')) {
-    response.status(404).end(JSON.stringify({'status':'ERROR', 'description':'Domain is a mandatory parameter.'}));
+    response.status(404).end(JSON.stringify({"status":"ERROR", "description":"Domain is a mandatory parameter."}));
   }
 
   var whoisUx = require("./node_modules/whois-ux/whois.js");
@@ -144,7 +145,7 @@ app.post("/whois", function(request, response, body){
    })
    .end(function(jsonWhoisResponse){
      console.log(jsonWhoisResponse.body);
-     response.status(200).end(JSON.stringify({'status':'OK', 'records':jsonWhoisResponse.body.nameservers}));
+     response.status(200).end(JSON.stringify({"status":"OK", "records":jsonWhoisResponse.body.nameservers}));
    });
 });
 
