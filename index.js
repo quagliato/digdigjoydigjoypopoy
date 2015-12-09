@@ -10,6 +10,43 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+/****************************************************************************/
+/* HEALTH CHECK */
+/****************************************************************************/
+app.get("/status", function(request, response, body){
+  response.status(200).send(JSON.stringify({"status":"OK", "method":"POST"}));
+});
+
+app.post("/status", function(request, response, body){
+  response.status(200).send(JSON.stringify({"status":"OK", "method":"GET"}));
+});
+
+/***************************************************************************/
+/* GET PAGE */
+/***************************************************************************/
+
+app.get('/', function(request, response, body) {
+  response.set('Access-Control-Allow-Origin', '*');
+  response.set('Content-Type', 'text/html');
+
+  var fs = require('fs');
+  fs.readFile('README.html', 'utf8', function(err, data) {
+    if (err) {
+      console.log(err);
+      response.status(500).end(JSON.stringify({'status':'ERROR','description':'Couldn\'t process your request.'}));
+    } else {
+      var returnStr = data;
+      returnStr += "\n\n" + JSON.stringify({"status": "OK"});
+
+      response.end(returnStr);
+    }
+  });
+});
+
+/**************************************************************************/
+/* DIG */
+/**************************************************************************/
+
 app.post('/', function(request, response, body) {
   response.set('Access-Control-Allow-Origin', '*');
   response.set('Content-Type', 'text/json');
@@ -65,39 +102,6 @@ app.post('/', function(request, response, body) {
     response.status(200).end(JSON.stringify({'status':'OK', 'records':records}));
   }).send();
   }
-});
-
-/***************************************************************************/
-/* GET PAGE */
-/***************************************************************************/
-
-app.get('/', function(request, response, body) {
-  response.set('Access-Control-Allow-Origin', '*');
-  response.set('Content-Type', 'text/plain');
-
-  var fs = require('fs');
-  fs.readFile('README', 'utf8', function(err, data) {
-    if (err) {
-      console.log(err);
-      response.status(500).end(JSON.stringify({'status':'ERROR','description':'Couldn\'t process your request.'}));
-    } else {
-      var returnStr = data;
-      returnStr += "\n\n" + JSON.stringify({"status": "OK"});
-
-      response.end(returnStr);
-    }
-  });
-});
-
-/****************************************************************************/
-/* HEALTH CHECK */
-/****************************************************************************/
-app.get("/status", function(request, response, body){
-  response.status(200).send(JSON.stringify({"status":"OK", "method":"POST"}));
-});
-
-app.post("/status", function(request, response, body){
-  response.status(200).send(JSON.stringify({"status":"OK", "method":"GET"}));
 });
 
 /*****************************************************************************/
