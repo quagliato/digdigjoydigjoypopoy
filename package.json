@@ -1,8 +1,8 @@
 {
   "name": "digdigjoydigjoypopoy",
   "version": "0.0.1",
-  "description": "Do you know the unix software $ dig? So, we do the same, but with HTTP requests.",
-  "main": "index.js",
+  "description": "Do you know the $ dig? So, we do the same, but with HTTP requests.",
+  "main": "server.js",
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
@@ -28,5 +28,8 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/quagliato/digdigjoydigjoypopoy/issues"
+  },
+  "scripts": {
+    "start": "node server.js"
   }
 }

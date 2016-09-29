@@ -6,8 +6,8 @@
 var bodyParser = require("body-parser");
 var express = require("express");
 
-// Get yours in http://jsonwhois.doc
-var JSON_WHOIS_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+// Get yours in http://jsonwhois.com
+var JSON_WHOIS_KEY = process.env.JSON_WHOIS_KEY || null;
 
 app = express();
 
@@ -125,6 +125,11 @@ app.post("/whois", function(request, response, body){
     response.status(404).end(JSON.stringify({"status":"ERROR", "description":"Domain is a mandatory parameter."}));
   }
 
+  if (JSON_WHOIS_KEY === null) {
+    console.log("No JSON_WHOIS_KEY setted in the environment.");
+    process.exit(1);
+  }
+
   var unirest = require("unirest");
 
   unirest.get('https://jsonwhois.com/api/v1/whois')
@@ -141,4 +146,6 @@ app.post("/whois", function(request, response, body){
    });
 });
 
-app.listen(3000);
+var port = process.env.PORT || 3000;
+
+app.listen(port);
