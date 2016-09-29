@@ -2,7 +2,7 @@
 
 ## What is it?
 
-Do you know the unix software ```$ dig```? So, we do the same, but with HTTP
+Do you know the  ```$ dig```? So, we do the same, but with HTTP
 requests.
 
 ## How to use?
@@ -10,25 +10,26 @@ requests.
 Request an POST to digdigjoydigjoypopoy.com with a JSON that contains a domain
 and a type, like this: 
 
-```{\"domain\":\"digdigjoydigjoypopoy.com\", \"type\":\"NS\"}```
+    {"domain":"digdigjoydigjoypopoy.com", "type":"NS"}
 
-It will return a JSON with \"status\" (which can be \"OK\" or \"ERROR\") and
-another property, which can be \"description\" if status is ERROR and \"records\"
- is OK
+It will return a JSON with *"status"* (which can be *"OK"* or *"ERROR"*) and
+another property, which can be *"description"* if status is ERROR and 
+*"records"* is OK
 
 ## Status
+
 If you're seeing this, everything is OK. But you make a GET request to
-http://pdf4devs.quagliato.me/status and we'll return a JSON like this
-```
-{"status":"OK"}
-```
+http://digdigjoydigjoypopoy.com/status and we'll return a JSON like this
+
+    {"status":"OK"}
+
 OR like this
-```
-{"status":"ERROR"}
-```
+
+    {"status":"ERROR"}
+
 ## Example
 
-```$ curl -XPOST digdigjoydigjoypopoy.com -d'{\"domain\":\"digdigjoydigjoypopoy.com\", \"type\":\"NS\"}'```
+    $ curl -XPOST digdigjoydigjoypopoy.com -d'{"domain":"digdigjoydigjoypopoy.com", "type":"NS"}'
 
 ## Get in touch
 

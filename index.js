@@ -1,7 +1,13 @@
-require('newrelic');
+// digdigjoydigjoypopoy
+// Do you know the $ dig? So, we do the same, but with HTTP sequests.
+// Curitiba, Brazil
+// Author: Eduardo Quagliato <eduardo@quagliato.me>
 
-var bodyParser = require("./node_modules/body-parser/index.js");
-var express = require("./node_modules/express/index.js");
+var bodyParser = require("body-parser");
+var express = require("express");
+
+// Get yours in http://jsonwhois.doc
+var JSON_WHOIS_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
 
 app = express();
 
@@ -57,7 +63,7 @@ app.post('/', function(request, response, body) {
   if (!params.hasOwnProperty('domain') || !params.hasOwnProperty('type')) {
     response.status(404).end(JSON.stringify({"status":"ERROR", "description":"Domain and Type are mandatory parameters."}));
   } else {
-  var dns = require("./node_modules/native-dns/dns.js");
+  var dns = require("native-dns");
   dns.Request({
     question: dns.Question({
       name: params.domain,
@@ -119,26 +125,12 @@ app.post("/whois", function(request, response, body){
     response.status(404).end(JSON.stringify({"status":"ERROR", "description":"Domain is a mandatory parameter."}));
   }
 
-  var whoisUx = require("./node_modules/whois-ux/whois.js");
-  var whois = require("./node_modules/node-whois/index.js");
-  var whoisJson = require("./node_modules/whois-json/index.js");
-  var unirest = require("./node_modules/unirest/index.js");
-  //whois.lookup(params.domain, function(err, data){
-  //whoisUx.whois(params.domain, function(err, data){
-  //whoisJson(params.domain, function(err, data){
-  /*
-    if (err !== null && err !== undefined) {
-      console.log(err);
-      response.end(JSON.stringify({'status':'ERROR','description':'Couldn\'t process your request.'}));
-    }
-    response.end(JSON.stringify({'status':'OK', 'records':data}));
-  });
-  */
+  var unirest = require("unirest");
 
   unirest.get('https://jsonwhois.com/api/v1/whois')
    .headers({
      'Accept': 'application/json',
-     'Authorization': 'Token token=621b737bd95a4c1b0946a5b63f75d41b'
+     'Authorization': 'Token token=' + JSON_WHOIS_KEY
    })
    .query({
      "domain": params.domain

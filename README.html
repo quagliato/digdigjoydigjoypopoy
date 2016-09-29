@@ -2,7 +2,7 @@
 
 <h2>What is it?</h2>
 
-<p>Do you know the unix software <code>$ dig</code>? So, we do the same, but with HTTP
+<p>Do you know the  <code>$ dig</code>? So, we do the same, but with HTTP
 requests.</p>
 
 <h2>How to use?</h2>
@@ -10,27 +10,30 @@ requests.</p>
 <p>Request an POST to digdigjoydigjoypopoy.com with a JSON that contains a domain
 and a type, like this: </p>
 
-<p><code>{\"domain\":\"digdigjoydigjoypopoy.com\", \"type\":\"NS\"}</code></p>
+<pre><code>{"domain":"digdigjoydigjoypopoy.com", "type":"NS"}
+</code></pre>
 
-<p>It will return a JSON with \"status\" (which can be \"OK\" or \"ERROR\") and
-another property, which can be \"description\" if status is ERROR and \"records\"
- is OK</p>
+<p>It will return a JSON with <em>"status"</em> (which can be <em>"OK"</em> or <em>"ERROR"</em>) and
+another property, which can be <em>"description"</em> if status is ERROR and 
+<em>"records"</em> is OK</p>
 
 <h2>Status</h2>
 
 <p>If you're seeing this, everything is OK. But you make a GET request to
-http://pdf4devs.quagliato.me/status and we'll return a JSON like this
-<code>
-{"status":"OK"}
-</code>
-OR like this
-<code>
-{"status":"ERROR"}
-</code></p>
+http://digdigjoydigjoypopoy.com/status and we'll return a JSON like this</p>
+
+<pre><code>{"status":"OK"}
+</code></pre>
+
+<p>OR like this</p>
+
+<pre><code>{"status":"ERROR"}
+</code></pre>
 
 <h2>Example</h2>
 
-<p><code>$ curl -XPOST digdigjoydigjoypopoy.com -d'{\"domain\":\"digdigjoydigjoypopoy.com\", \"type\":\"NS\"}'</code></p>
+<pre><code>$ curl -XPOST digdigjoydigjoypopoy.com -d'{"domain":"digdigjoydigjoypopoy.com", "type":"NS"}'
+</code></pre>
 
 <h2>Get in touch</h2>
 
