@@ -2,34 +2,38 @@
 
 ## What is it?
 
-Do you know the  ```$ dig```? So, we do the same, but with HTTP
-requests.
+Know ```$ dig```? So, we do the same, but through and API.
 
 ## How to use?
 
-Request an POST to digdigjoydigjoypopoy.com with a JSON that contains a domain
-and a type, like this: 
+GET to `https://digdigjoydigjoypopoy.herokuapp.com/dig` with `domain` and `type` as 
+query string parameters.
 
-    {"domain":"digdigjoydigjoypopoy.com", "type":"NS"}
+It will return a JSON with `'status'` (which can be *'OK'* or *'ERROR'*) and
+another property, which can be *'description'* if status is ERROR and 
+*'records'* is OK.
 
-It will return a JSON with *"status"* (which can be *"OK"* or *"ERROR"*) and
-another property, which can be *"description"* if status is ERROR and 
-*"records"* is OK
+## Health check
 
-## Status
+If you're seeing this, everything is OK. But you can constantly make request to
+`https://digdigjoydigjoypopoy.herokuapp.com/status` and we'll return a JSON 
+like this:
 
-If you're seeing this, everything is OK. But you make a GET request to
-http://digdigjoydigjoypopoy.com/status and we'll return a JSON like this
-
+```json
     {"status":"OK"}
+```
 
-OR like this
+OR like this:
 
+```json
     {"status":"ERROR"}
+```
 
 ## Example
 
-    $ curl -XPOST digdigjoydigjoypopoy.com -d'{"domain":"digdigjoydigjoypopoy.com", "type":"NS"}'
+```
+curl https://digdigjoydigjoypopoy.herokuapp.com/dig?domain=quagliato.me&type=A
+```
 
 ## Get in touch
 

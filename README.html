@@ -2,38 +2,38 @@
 
 <h2>What is it?</h2>
 
-<p>Do you know the  <code>$ dig</code>? So, we do the same, but with HTTP
-requests.</p>
+<p>Know <code>$ dig</code>? So, we do the same, but through and API.</p>
 
 <h2>How to use?</h2>
 
-<p>Request an POST to digdigjoydigjoypopoy.com with a JSON that contains a domain
-and a type, like this: </p>
+<p>GET to <code>https://digdigjoydigjoypopoy.herokuapp.com/dig</code> with <code>domain</code> and <code>type</code> as 
+query string parameters.</p>
 
-<pre><code>{"domain":"digdigjoydigjoypopoy.com", "type":"NS"}
-</code></pre>
+<p>It will return a JSON with <code>'status'</code> (which can be <em>'OK'</em> or <em>'ERROR'</em>) and
+another property, which can be <em>'description'</em> if status is ERROR and 
+<em>'records'</em> is OK.</p>
 
-<p>It will return a JSON with <em>"status"</em> (which can be <em>"OK"</em> or <em>"ERROR"</em>) and
-another property, which can be <em>"description"</em> if status is ERROR and 
-<em>"records"</em> is OK</p>
+<h2>Health check</h2>
 
-<h2>Status</h2>
+<p>If you're seeing this, everything is OK. But you can constantly make request to
+<code>https://digdigjoydigjoypopoy.herokuapp.com/status</code> and we'll return a JSON 
+like this:</p>
 
-<p>If you're seeing this, everything is OK. But you make a GET request to
-http://digdigjoydigjoypopoy.com/status and we'll return a JSON like this</p>
+<p><code>json
+    {"status":"OK"}
+</code></p>
 
-<pre><code>{"status":"OK"}
-</code></pre>
+<p>OR like this:</p>
 
-<p>OR like this</p>
-
-<pre><code>{"status":"ERROR"}
-</code></pre>
+<p><code>json
+    {"status":"ERROR"}
+</code></p>
 
 <h2>Example</h2>
 
-<pre><code>$ curl -XPOST digdigjoydigjoypopoy.com -d'{"domain":"digdigjoydigjoypopoy.com", "type":"NS"}'
-</code></pre>
+<p><code>
+curl https://digdigjoydigjoypopoy.herokuapp.com/dig?domain=quagliato.me&amp;type=A
+</code></p>
 
 <h2>Get in touch</h2>
 
