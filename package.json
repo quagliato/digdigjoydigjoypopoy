@@ -12,8 +12,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -29,8 +28,5 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/quagliato/digdigjoydigjoypopoy/issues"
-  },
-  "scripts": {
-    "start": "node server.js"
   }
 }
