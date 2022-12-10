@@ -5,7 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.13.3",
-    "express": "^4.13.3",
+    "express": "^4.17.3",
     "native-dns": "^0.7.0",
     "unirest": "^0.6.0"
   },
